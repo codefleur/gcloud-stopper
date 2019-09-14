@@ -1,0 +1,15 @@
+{
+  "name": "codemaster-gcloud-stopper-basic",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "export $(cat .env | sed 's/#.*//g' | xargs) && node index.js",
+    "build": "sudo docker build -t choephixpi/codestopper ."
+  },
+  "author": "cx",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/compute": "^1.1.5",
+    "node-fetch": "^2.6.0"
+  }
+}
