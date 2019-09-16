@@ -11,6 +11,3 @@ services:
       - PING_URL=http://gccxpi.duckdns.org/ping/get
       - COMPUTE_ZONE=europe-west3-c
       - COMPUTE_INSTANCE=beast
-      - DUCKDNS_DOMAINS=c-x,gccx,gccxpi
-      - DUCKDNS_TOKEN=e737eb04-db50-4836-8a40-b3a1a57f92cd
-      - DUCKDNS_IPADDRESS= # when blank, duckdns sets to sender's ip automatically

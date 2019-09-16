@@ -6,7 +6,6 @@ const COMPUTE_INSTANCE = process.env.COMPUTE_INSTANCE
 
 const compute = new (require('@google-cloud/compute'))()
 
-console.clear()
 console.log(`\x1b[93mWill kill vm on ${MAX_PING_DELTA} seconds inactivity from codemaster\x1b[0m`)
 
 async function stopinstance() {
@@ -18,18 +17,6 @@ async function stopinstance() {
 
 const fetch = require("node-fetch")
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)) }
-
-async function updateDomainIP() {
-  try {
-    const DUCKDNS_DOMAINS = process.env.DUCKDNS_DOMAINS
-    const DUCKDNS_TOKEN = process.env.DUCKDNS_TOKEN
-    const DUCKDNS_IPADDRESS = process.env.DUCKDNS_IPADDRESS
-    const response = await fetch(`https://www.duckdns.org/update?domains=${DUCKDNS_DOMAINS}&`+
-                                 `token=${DUCKDNS_TOKEN}&ip=${DUCKDNS_IPADDRESS}&verbose=true`)
-    console.log( await response.text() )
-  }
-  catch( e ) { console.error( e ) }
-}
 
 async function loop() {
   while( true )
@@ -52,5 +39,4 @@ async function loop() {
   }
 }
 
-updateDomainIP()
 loop()
