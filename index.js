@@ -35,7 +35,7 @@ async function loop() {
         return
       }
     }
-    catch( e ) { console.error( e ) }
+    catch( e ) { console.error( e.message ) }
   }
 }
 
