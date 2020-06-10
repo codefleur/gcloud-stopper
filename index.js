@@ -1,6 +1,7 @@
+'use strict'
+
 const VERBOSE = process.env.VERBOSE == "true"
 const MAX_PING_DELTA = process.env.MAX_PING_DELTA
-const PING_URL = process.env.PING_URL
 const COMPUTE_ZONE = process.env.COMPUTE_ZONE
 const COMPUTE_INSTANCE = process.env.COMPUTE_INSTANCE
 
@@ -23,9 +24,7 @@ async function loop() {
   {
     await sleep(1000)
     try {
-      const response = await fetch(PING_URL)
-      const pingtime = parseInt( await response.text() )
-      const pingdelta = Math.floor( .001 * (new Date().getTime() - pingtime) )
+      const pingdelta = Math.floor( .001 * (new Date().getTime() - lastping) )
       if ( VERBOSE )
         console.log( `\x1b[${pingdelta>.9?93:94};1m${pingdelta}\x1b[0;94m seconds since last ping\x1b[0m` )
       if ( pingdelta > MAX_PING_DELTA )
@@ -40,3 +39,33 @@ async function loop() {
 }
 
 loop()
+
+
+
+//  //  //  //  //  //  //  //  //  //  //  //
+
+
+
+const {readdirSync} = require('fs')
+const execSync = require('child_process').execSync
+
+console.clear()
+
+var express = require('express')
+var app = express()
+
+const PORT = process.env.PORT || 80
+
+app.use( function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  next()
+} )
+
+app.use( '/', express.static('public') )
+
+let lastping = new Date().getTime()
+app.get( '/ping/update', (req, res) => res.send( ( lastping = new Date().getTime() ).toString() ) )
+app.get( '/ping/get', (req, res) => res.send( lastping.toString() ) )
+
+app.listen( PORT )
