@@ -19,7 +19,7 @@ var pinger = {
   start: async function( interval ) {
     this.running = true
     while ( this.running ) {
-      if( document.visibilityState == "visible" && document.hasFocus() ) {
+      if( this.active() ) {
         let r = await fetch( this.ping_url )
         let t = await r.text()
         this.last_ping_time = this.now()
@@ -27,6 +27,7 @@ var pinger = {
       await this.delay( interval )
     }
   },
+  active: () => ! document || ( document.visibilityState == "visible" && document.hasFocus() )
   now: () => new Date().getTime() * .001
 }
 ```
