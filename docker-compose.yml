@@ -1,13 +1,13 @@
 version: "2"
 services:
   codestopper:
-    image: choephixpi/codestopper
-    container_name: code-stopper
-    hostname: codestopper
-    restart: always
+    image: codefleur/gcloud-stopper
+    container_name: gcloud-stopper
+    restart: never
+    ports:
+      - 1234:1234
     environment:
       - VERBOSE=false
-      - MAX_PING_DELTA=900
-      - PING_URL=http://gccxpi.duckdns.org/ping/get
+      - MAX_PING_DELTA=900 # 15 minutes
       - COMPUTE_ZONE=europe-west3-c
       - COMPUTE_INSTANCE=beast
