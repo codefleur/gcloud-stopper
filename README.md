@@ -22,7 +22,6 @@ var pinger = {
       if( document.visibilityState == "visible" && document.hasFocus() ) {
         let r = await fetch( this.ping_url )
         let t = await r.text()
-        console.log( t )
         this.last_ping_time = this.now()
       }
       await this.delay( interval )
