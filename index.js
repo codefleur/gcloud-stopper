@@ -1,9 +1,12 @@
 'use strict'
 
 const VERBOSE = process.env.VERBOSE == "true"
-const MAX_PING_DELTA = process.env.MAX_PING_DELTA
+const MAX_PING_DELTA = process.env.MAX_PING_DELTA || 60
 const COMPUTE_ZONE = process.env.COMPUTE_ZONE
 const COMPUTE_INSTANCE = process.env.COMPUTE_INSTANCE
+
+if ( ! COMPUTE_ZONE ) throw new Error( "No COMPUTE_ZONE environment variable defined." )
+if ( ! COMPUTE_INSTANCE ) throw new Error( "No COMPUTE_INSTANCE environment variable defined." )
 
 const compute = new (require('@google-cloud/compute'))()
 
@@ -34,7 +37,11 @@ async function loop() {
         return
       }
     }
-    catch( e ) { console.error( e.message ) }
+    catch( e ) { 
+      // console.error( e.message ) 
+      // exit( 500 )
+      throw e
+    }
   }
 }
 
@@ -54,7 +61,7 @@ console.clear()
 var express = require('express')
 var app = express()
 
-const PORT = process.env.PORT || 80
+const PORT = process.env.PORT || 1234
 
 app.use( function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")

@@ -1,13 +1,19 @@
 {
-  "name": "codemaster-gcloud-stopper-basic",
-  "version": "0.0.1",
+  "name": "codefleur-gcloud-stopper",
+  "version": "0.2.0",
+  "author": "codefleur",
+  "description": "Automatically stop a Google Cloud Compute instance if not pinged in specified amount of time",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/npm/cli.git"
+  },
+  "private": true,
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "start": "export $(cat .env | sed 's/#.*//g' | xargs) && node index.js",
     "build": "sudo docker build -t choephixpi/codestopper ."
   },
-  "author": "cx",
-  "license": "ISC",
   "dependencies": {
     "@google-cloud/compute": "^1.1.5",
     "express": "^4.17.1",
