@@ -14,7 +14,7 @@ services:
   codestopper:
     image: codefleur/gcloud-stopper
     container_name: gcloud-stopper
-    restart: never
+    restart: unless-stopped
     ports:
       - 1234:1234
     environment:
