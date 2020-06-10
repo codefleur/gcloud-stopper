@@ -4,8 +4,8 @@
   "author": "codefleur",
   "description": "Automatically stop a Google Cloud Compute instance if not pinged in specified amount of time",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/npm/cli.git"
+    "type": "git",
+    "url": "https://github.com/codefleur/gcloud-stopper"
   },
   "private": true,
   "license": "MIT",
